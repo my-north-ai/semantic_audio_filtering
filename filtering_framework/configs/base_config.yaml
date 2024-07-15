@@ -34,11 +34,11 @@ training:
 # Environment configuration
 env:
   # Base directory of the repo, populated when config is loaded
-  base_dir: filtering_framework/
+  base_dir: '/Users/tmsantos/Documents/TTS_Augmentation/tts_data_augmentation'
   # Directory for storing datasets and models
   data_root: ${env.base_dir}/data
   # Directory for experiments, logs, output samples etc.
-  save_dir: ${env.base_dir}/save
+  save_dir: ${env.base_dir}/filtering_framework/save
   # Directory for saving models, logs and checkpoints for each experiment
   experiments_dir: ${env.save_dir}/experiments
   # Experiment id

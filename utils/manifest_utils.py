@@ -12,7 +12,6 @@ MANIFEST_FOLDER = os.path.join(DATA_FOLDER, 'manifest_data')
 MANIFEST_FINETUNING_FOLDER = os.path.join(MANIFEST_FOLDER, 'finetuning')
 MANIFEST_RAW_FOLDER = os.path.join(MANIFEST_FINETUNING_FOLDER, 'raw')
 MANIFEST_PREPROCESSED_FOLDER = os.path.join(MANIFEST_FINETUNING_FOLDER, 'preprocessed')
-FILTERING_DATA_FOLDER = 'filtering_framework/data'
 
 
 def convert_hf_dataset_to_manifest(dataset, dataset_type, manifest_filename):
@@ -62,6 +61,8 @@ def read_manifest_file(filename, raw=True):
     else:
         file_path = os.path.join(MANIFEST_PREPROCESSED_FOLDER, filename)
 
+    print(f"Reading manifest file: {file_path}")
+
     with open(file_path, 'r') as file:
         # Read the entire file content
         file_content = file.read()
@@ -77,13 +78,9 @@ def read_manifest_file(filename, raw=True):
     
     return json_objects
 
-def write_manifest_file(manifest_data, filename, manifest_type='finetuning'):
+def write_manifest_file(manifest_data, filename):
 
-    if manifest_type == 'finetuning':
-        file_path = os.path.join(MANIFEST_PREPROCESSED_FOLDER, filename)
-    else: #manifest_type == 'filtering':
-        file_path = os.path.join(FILTERING_DATA_FOLDER, filename)
-
+    file_path = os.path.join(MANIFEST_PREPROCESSED_FOLDER, filename)
     try:
         with open(file_path, 'w') as file:
             for item in manifest_data:
@@ -111,7 +108,7 @@ def remove_special_samples(manifest_data):
 
     return new_manifest_data
 
-def convert_finetuning_manifest_to_filtering_manifest(original_manifest_data):
+def convert_finetuning_manifest_to_filtering_manifest(original_manifest_data, your_project_path):
     
     # Initialize an empty list to store the new manifest lines
     new_manifest_data = []
@@ -121,7 +118,7 @@ def convert_finetuning_manifest_to_filtering_manifest(original_manifest_data):
         new_entry = {
             "audio_id": index,  # Use the index as the audio_id
             "caption": manifest_line['text'],  # Use 'text' from original manifest_line as 'caption'
-            "audio_path": manifest_line['audio_filepath']  # Use 'audio_filepath' from original manifest_line as 'audio_path'
+            "audio_path": os.path.join(your_project_path, manifest_line['audio_filepath'])  # Use 'audio_filepath' from original manifest_line as 'audio_path'
         }
         new_manifest_data.append(new_entry)
 

@@ -15,7 +15,6 @@ from dataset import AudioCaptionDataset
 from transformers import WhisperFeatureExtractor
 
 
-
 class MusCALLTrainer(BaseTrainer):
     def __init__(self, config, logger):
         super().__init__(config, logger)
