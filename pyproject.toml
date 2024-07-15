@@ -12,6 +12,7 @@ soundfile = "^0.12.1"
 transformers = "^4.42.4"
 datasets = "^2.20.0"
 jupyter = "^1.0.0"
+num2words = "^0.5.13"
 
 
 [build-system]
