@@ -7,3 +7,5 @@ mkdir -p data
 mkdir -p data/wav_data
 mkdir -p data/manifest_data
 
+mkdir -p data/manifest_data/raw
+mkdir -p data/manifest_data/preprocessed
