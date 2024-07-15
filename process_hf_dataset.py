@@ -1,9 +1,10 @@
 import argparse
 from utils.text_preprocessing_utils import apply_preprocessors
-from utils.manifest_utils import convert_hf_dataset_to_manifest, read_manifest_file, write_manifest_file, remove_special_samples
+from utils.manifest_utils import convert_hf_dataset_to_manifest, read_manifest_file, write_manifest_file, remove_special_samples, convert_finetuning_manifest_to_filtering_manifest
 from datasets import load_dataset
 
 def main(args):
+
     # Load dataset
     cv_dataset = load_dataset(args.dataset_name, args.dataset_language, split=args.split)
     
@@ -13,6 +14,10 @@ def main(args):
     # Read the generated manifest file
     train_manifest = read_manifest_file(args.manifest_filename)
     
+    # Convert the finetuning manifest to a filtering manifest without preprocessing
+    filtering_data = convert_finetuning_manifest_to_filtering_manifest(train_manifest)
+    write_manifest_file(filtering_data, args.manifest_filename, 'filtering')
+    
     # Apply preprocessors to the manifest data
     train_manifest_processed = apply_preprocessors(train_manifest)
     
@@ -21,7 +26,9 @@ def main(args):
     
     # Write the processed manifest back to a file
     write_manifest_file(train_manifest_processed, args.manifest_filename)
-    
+
+        
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Process dataset and create a processed manifest file.")
     
@@ -35,3 +42,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     main(args)
+
+    #python process_hf_dataset.py mozilla-foundation/common_voice_16_1 pt train common_voice common_voice_16_1_train_manifest.json

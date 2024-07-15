@@ -1,0 +1,17 @@
+ model_config: 
+  model_name: muscall
+  projection_dim: 512             # dimensionality of the multimodal projection layer
+  temperature: null
+  audio: 
+    model: Whisper         # name of the audio backbone model (ModifiedResNet supported)
+    hidden_size: 1024
+    ssl:
+      do_ssl: False              # whether to add audio self-supervised learning during pre-training
+      ssl_loss_weight: 0.3
+      ssl_temperature: 0.5
+      ssl_projection_dim: 128          
+  text: 
+    model: AlbertinaScratch         # name of the textual head model. One of TextTransformer, CLIPTextModel
+    pretrained: PORTULAN/albertina-100m-portuguese-ptpt-encoder # name of the pretrained textual head model
+    hidden_size: 768
+  loss: weighted_clip                    
