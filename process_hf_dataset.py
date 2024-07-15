@@ -14,10 +14,6 @@ def main(args):
     # Read the generated manifest file
     train_manifest = read_manifest_file(args.manifest_filename)
     
-    # Convert the finetuning manifest to a filtering manifest without preprocessing
-    filtering_data = convert_finetuning_manifest_to_filtering_manifest(train_manifest)
-    write_manifest_file(filtering_data, args.manifest_filename, 'filtering')
-    
     # Apply preprocessors to the manifest data
     train_manifest_processed = apply_preprocessors(train_manifest)
     
