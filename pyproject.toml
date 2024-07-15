@@ -1,12 +1,17 @@
 [tool.poetry]
 name = "tts-data-augmentation"
 version = "0.1.0"
-description = "Synthetic data augmentation technique via LLM for audio. To serve as input for a TTS model training"
-authors = ["Your Name <you@example.com>"]
+description = "Synthetic data augmentation technique via LLM for audio. To serve as input for a TTS model training."
+authors = ["tiagomosantos <tiago.moco.santos@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.11"
+librosa = "^0.10.2.post1"
+soundfile = "^0.12.1"
+transformers = "^4.42.4"
+datasets = "^2.20.0"
+jupyter = "^1.0.0"
 
 
 [build-system]
