@@ -1,11 +1,13 @@
 .env
 .DS_Store
 /Users/yuriy/Desktop/MyNorth/tts_data_augmentation/tts_data_augmentation/data/generatedData/preprocessedCsv.csv
-filtering_framework/__pycache__/
 
 # Ignore all wav files in the data/wavs folder
 filtering_framework/data/
-filtering_framework/utils.ipynb
+/Users/tmsantos/Documents/TTS_Augmentation/tts_data_augmentation/filtering_framework/utils.ipynb
+/Users/tmsantos/Documents/TTS_Augmentation/tts_data_augmentation/filtering_framework/__pycache__/
+
+
 
 .env
 *.log
