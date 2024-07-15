@@ -3,3 +3,9 @@
 /Users/yuriy/Desktop/MyNorth/tts_data_augmentation/tts_data_augmentation/data/generatedData/preprocessedCsv.csv
 
 
+# Ignore all wav files in the data/wavs folder
+filtering_framework/data/
+filtering_framework/utils.ipynb
+
+.env
+*.log
