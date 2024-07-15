@@ -26,10 +26,18 @@ class AudioCaptionDataset(Dataset):
         self._dataset_name = "audiocaption"
         self._dataset_type = dataset_type
         self._data_dir = self.config.data_dir
+        print(config)
 
-        self.dataset_json = os.path.join(
-            self._data_dir, "new_dataset_{}.json".format(self._dataset_type)
-        )
+        if dataset_type == "train":
+            self.dataset_json = os.path.join(self._data_dir, self.config.train_filename)
+        elif dataset_type == "test":
+             self.dataset_json = os.path.join(self._data_dir, self.config.val_filename)
+        else:
+            raise ValueError(
+                "{} is not supported. Please provide a valid dataset type.".format(
+                    dataset_type
+                )
+            )
 
         self.max_seq_length = self.config.text.max_seq_length
         self.sample_rate = self.config.audio.sr
