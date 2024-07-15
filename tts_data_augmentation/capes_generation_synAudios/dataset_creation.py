@@ -30,5 +30,3 @@ capes['Audio_path'] = capes.index.map(index_path_map.get)
 capes_final= capes.dropna(subset=["Audio_path"])
 capes_final.to_csv("capes_final.csv", index=False)
 ############ AT THE END A CSV FILE WITH THE PATH TO GENERATED AUDIO FILES IS CREATED ############
-
-########### NOW IT IS CREATED A DATASET OBJECT TO PUSH TO THE HF HUB ############ 
