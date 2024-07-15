@@ -9,8 +9,11 @@ import re
 DATA_FOLDER = 'data'
 WAV_FOLDER = os.path.join(DATA_FOLDER, 'wav_data')
 MANIFEST_FOLDER = os.path.join(DATA_FOLDER, 'manifest_data')
-MANIFEST_RAW_FOLDER = os.path.join(MANIFEST_FOLDER, 'raw')
-MANIFEST_PREPROCESSED_FOLDER = os.path.join(MANIFEST_FOLDER, 'preprocessed')
+MANIFEST_FINETUNING_FOLDER = os.path.join(MANIFEST_FOLDER, 'finetuning')
+MANIFEST_RAW_FOLDER = os.path.join(MANIFEST_FINETUNING_FOLDER, 'raw')
+MANIFEST_PREPROCESSED_FOLDER = os.path.join(MANIFEST_FINETUNING_FOLDER, 'preprocessed')
+FILTERING_DATA_FOLDER = 'filtering_framework/data'
+
 
 def convert_hf_dataset_to_manifest(dataset, dataset_type, manifest_filename):
 
@@ -58,6 +61,7 @@ def read_manifest_file(filename, raw=True):
         file_path = os.path.join(MANIFEST_RAW_FOLDER, filename)
     else:
         file_path = os.path.join(MANIFEST_PREPROCESSED_FOLDER, filename)
+
     with open(file_path, 'r') as file:
         # Read the entire file content
         file_content = file.read()
@@ -73,9 +77,14 @@ def read_manifest_file(filename, raw=True):
     
     return json_objects
 
-def write_manifest_file(manifest_data, filename):
-    try:
+def write_manifest_file(manifest_data, filename, manifest_type='finetuning'):
+
+    if manifest_type == 'finetuning':
         file_path = os.path.join(MANIFEST_PREPROCESSED_FOLDER, filename)
+    else: #manifest_type == 'filtering':
+        file_path = os.path.join(FILTERING_DATA_FOLDER, filename)
+
+    try:
         with open(file_path, 'w') as file:
             for item in manifest_data:
                 json_line = json.dumps(item)
@@ -102,3 +111,18 @@ def remove_special_samples(manifest_data):
 
     return new_manifest_data
 
+def convert_finetuning_manifest_to_filtering_manifest(original_manifest_data):
+    
+    # Initialize an empty list to store the new manifest lines
+    new_manifest_data = []
+
+    # Iterate over the original manifest list and create new entries in the desired format
+    for index, manifest_line in enumerate(original_manifest_data):
+        new_entry = {
+            "audio_id": index,  # Use the index as the audio_id
+            "caption": manifest_line['text'],  # Use 'text' from original manifest_line as 'caption'
+            "audio_path": manifest_line['audio_filepath']  # Use 'audio_filepath' from original manifest_line as 'audio_path'
+        }
+        new_manifest_data.append(new_entry)
+
+    return new_manifest_data
