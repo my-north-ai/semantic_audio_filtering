@@ -1,6 +1,6 @@
 import argparse
-from text_preprocessing_utils import apply_preprocessors
-from manifest_utils import convert_hf_dataset_to_manifest, read_manifest_file, write_manifest_file, remove_special_samples
+from utils.text_preprocessing_utils import apply_preprocessors
+from utils.manifest_utils import convert_hf_dataset_to_manifest, read_manifest_file, write_manifest_file, remove_special_samples
 from datasets import load_dataset
 
 def main(args):
