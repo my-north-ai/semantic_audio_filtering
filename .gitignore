@@ -3,12 +3,12 @@
 /Users/yuriy/Desktop/MyNorth/tts_data_augmentation/tts_data_augmentation/data/generatedData/preprocessedCsv.csv
 
 # Ignore all wav files in the data/wavs folder
-filtering_framework/data/
 /Users/tmsantos/Documents/TTS_Augmentation/tts_data_augmentation/filtering_framework/utils.ipynb
 /Users/tmsantos/Documents/TTS_Augmentation/tts_data_augmentation/filtering_framework/__pycache__/
 data/
 filtering_framework/save/
 filtering_framework/mlruns/
+filtering_framework/data/
 
 
 .env
