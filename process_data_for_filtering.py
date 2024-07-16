@@ -7,14 +7,12 @@ def main(args):
     
     os.makedirs("filtering_framework/data", exist_ok=True)
 
-    your_project_path = '/Users/tmsantos/Documents/TTS_Augmentation/tts_data_augmentation'
-
     train_manifest = read_manifest_file(args.manifest_filename)
     
     # Convert the finetuning manifest to a filtering manifest without preprocessing
-    filtering_data = convert_finetuning_manifest_to_filtering_manifest(train_manifest, your_project_path)
+    filtering_data = convert_finetuning_manifest_to_filtering_manifest(train_manifest)
 
-    filtering_data_folder = os.path.join(your_project_path, 'filtering_framework/data')
+    filtering_data_folder = os.path.join(args.project_path, 'filtering_framework/data')
     file_path = os.path.join(filtering_data_folder, args.manifest_filename)
     with open(file_path, "w") as json_file:
         json.dump(filtering_data, json_file, indent=4)
@@ -25,10 +23,9 @@ if __name__ == "__main__":
     
     # Required arguments
     parser.add_argument("manifest_filename", type=str, help="Filename for the generated manifest file")
-    
+    parser.add_argument("project_path", type=str, help="Path to the project folder")
     args = parser.parse_args()
     
     main(args)
-
-    #python create_filtering_data.py common_voice_16_1_train_manifest.json
+#python process_data_for_filtering.py common_voice_16_1_train_manifest.json /Users/tmsantos/Documents/TTS_Augmentation/semantic_audio_filtering
 
