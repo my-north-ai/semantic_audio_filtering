@@ -47,6 +47,7 @@ def main(model_pretrained, train_manifest, val_manifest):
     train_dataset = create_dataset(train_manifest)
     val_dataset = create_dataset(val_manifest)
 
+    # Used for 4 GPUs
     config_json['output_dir'] = checkpoint_folder
     config_json['warmup_steps'] = int(0.5 * len(train_dataset) * 3 / (32 * 4) / 10)
     config_json['save_steps'] = int(len(train_dataset) * 3 / (32 * 4) / 10)
