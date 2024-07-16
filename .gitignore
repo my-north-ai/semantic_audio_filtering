@@ -1,5 +1,6 @@
 .env
 .DS_Store
+DS_Store
 /Users/yuriy/Desktop/MyNorth/tts_data_augmentation/tts_data_augmentation/data/generatedData/preprocessedCsv.csv
 
 # Ignore all wav files in the data/wavs folder
