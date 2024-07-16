@@ -4,10 +4,9 @@ Synthetic data augmentation technique via LLM for audio. To serve as input for a
 
 ### The folders are distributed in the following order: 
 
-configuratios -> Retrieve the basic settings from the .env file
+Filtering Framework-> All the steps for creation of the filtering methods of synhtetic audio
 
-data-> generation.ipynb has the pipeline for generating synthetic audio from multilingual libri speech dataset;
-    generated_data-> storage for all the generated audio files
+tts_data_augmentation -> Serves as the folder for all the files and the scripts to create synthetically generated audios
 
 env.example -> example of how the .env file should be structured
 
