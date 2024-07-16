@@ -34,23 +34,24 @@ def load_embeddings():
     
 
 class FilteringFramework:
-    def __init__(self, config):
+    def __init__(self, config, pretrained_model_path):
         super().__init__()
         self.config = config
         self.device = torch.device(self.config.training.device)
         self.feature_extractor = WhisperFeatureExtractor.from_pretrained("openai/whisper-medium")
-
+        self.checkpoint_path = pretrained_model_path
+        
         self.path_to_model = os.path.join(
             self.config.env.experiments_dir,
             self.config.env.experiment_id,
             "best_model.pth.tar",
         )
-        print("path to model", self.path_to_model)
+                
 
         self.load_dataset()
-        self.build_model()
+        self.load_model()
         self.similarities = None
-    
+
     def collate_fn(self, batch):
         input_audio, text_input_ids, text_attention_mask, idx = zip(*batch)
         
@@ -90,8 +91,7 @@ class FilteringFramework:
 
     def load_model(self):
         self.model = MusCALL(self.config.model_config)
-        self.checkpoint = torch.load(self.path_to_model)
-        self.model.load_state_dict(self.checkpoint["state_dict"])
+        self.model.load_state_dict(torch.load(self.checkpoint_path), strict=False)
         self.model.to(self.device)
         self.model.eval()
 

@@ -76,19 +76,12 @@ class MusCALL(nn.Module):
             for param in self.textual_head.deberta.embeddings.parameters():
                 param.requires_grad = False
 
-
         self.audio_projection = nn.Linear(audio_dim, projection_dim, bias=False)
         self.text_projection = nn.Linear(text_dim, projection_dim, bias=False)
 
         if self.temperature is None:
             self.logit_scale = nn.Parameter(torch.ones([]) * np.log(1 / 0.07))
 
-        #if self.do_audio_ssl:
-        #    print("Running audio SSL")
-        #    self.audio_ssl = SimCLRAudio(
-        #        encoder=self.audio_backbone,
-        #        audio_config=audio_config,
-        #    )
 
     def encode_audio(self, audio):
         hidden_states = self.audio_backbone(audio)[0]
