@@ -10,6 +10,29 @@ from model import MusCALL
 from dataset import AudioCaptionDataset
 import librosa
 
+def compute_cosine_similarity(audio_features, text_features):
+    cosine_sim = F.cosine_similarity(text_features, audio_features, dim=-1)
+    cosine_sim_bounded = (1 + cosine_sim) / 2
+    return cosine_sim_bounded
+
+def load_embeddings():
+    # Check if the embeddings files exist
+    if not os.path.exists("embeddings/synthetic_audio_features.pkl") or not os.path.exists("embeddings/synthetic_text_features.pkl"):
+        print("Embeddings files not found. Please run the extract_embeddings() method first.")
+        return
+
+    audio_features_path = "embeddings/" + "synthetic_audio_features.pkl"
+    text_features_path = "embeddings/" + "synthetic_text_features.pkl"
+
+    with open(audio_features_path, 'rb') as af_file:
+        audio_features = pickle.load(af_file)
+
+    with open(text_features_path, 'rb') as tf_file:
+        text_features = pickle.load(tf_file)
+
+    return audio_features, text_features
+    
+
 class FilteringFramework:
     def __init__(self, config):
         super().__init__()
@@ -116,29 +139,6 @@ class FilteringFramework:
 
         return audio_features, text_features
 
-    @staticmethod
-    def load_embeddings():
-        # Check if the embeddings files exist
-        if not os.path.exists("embeddings/synthetic_audio_features.pkl") or not os.path.exists("embeddings/synthetic_text_features.pkl"):
-            print("Embeddings files not found. Please run the extract_embeddings() method first.")
-            return
-
-        audio_features_path = "embeddings/" + "synthetic_audio_features.pkl"
-        text_features_path = "embeddings/" + "synthetic_text_features.pkl"
-
-        with open(audio_features_path, 'rb') as af_file:
-            audio_features = pickle.load(af_file)
-
-        with open(text_features_path, 'rb') as tf_file:
-            text_features = pickle.load(tf_file)
-
-        return audio_features, text_features
-
-    @staticmethod   
-    def compute_cosine_similarity(audio_features, text_features):
-        cosine_sim = F.cosine_similarity(text_features, audio_features, dim=-1)
-        cosine_sim_bounded = (1 + cosine_sim) / 2
-        return cosine_sim_bounded
     
     def get_similarities(self, audio_features, text_features):        
         similarities = []
