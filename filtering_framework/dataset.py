@@ -32,6 +32,8 @@ class AudioCaptionDataset(Dataset):
             self.dataset_json = os.path.join(self._data_dir, self.config.train_filename)
         elif dataset_type == "test":
              self.dataset_json = os.path.join(self._data_dir, self.config.val_filename)
+        elif dataset_type == "to_filter":
+            self.dataset_json = os.path.join(self._data_dir, self.config.to_filter_filename)
         else:
             raise ValueError(
                 "{} is not supported. Please provide a valid dataset type.".format(
