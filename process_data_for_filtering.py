@@ -5,6 +5,8 @@ import json
 
 def main(args):
     
+    os.makedirs("filtering_framework/data", exist_ok=True)
+
     your_project_path = '/Users/tmsantos/Documents/TTS_Augmentation/tts_data_augmentation'
 
     train_manifest = read_manifest_file(args.manifest_filename)

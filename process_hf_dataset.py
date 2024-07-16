@@ -2,8 +2,16 @@ import argparse
 from utils.text_preprocessing_utils import apply_preprocessors
 from utils.manifest_utils import convert_hf_dataset_to_manifest, read_manifest_file, write_manifest_file, remove_special_samples, convert_finetuning_manifest_to_filtering_manifest
 from datasets import load_dataset
+import os
 
 def main(args):
+
+    # Create directories
+    os.makedirs("data", exist_ok=True)
+    os.makedirs("data/wav_data", exist_ok=True)
+    os.makedirs("data/manifest_data", exist_ok=True)
+    os.makedirs("data/manifest_data/finetuning/raw", exist_ok=True)
+    os.makedirs("data/manifest_data/finetuning/preprocessed", exist_ok=True)
 
     # Load dataset
     cv_dataset = load_dataset(args.dataset_name, args.dataset_language, split=args.split)
