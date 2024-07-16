@@ -10,7 +10,7 @@ def main(args):
     train_manifest = read_manifest_file(args.manifest_filename)
     
     # Convert the finetuning manifest to a filtering manifest without preprocessing
-    filtering_data = convert_finetuning_manifest_to_filtering_manifest(train_manifest)
+    filtering_data = convert_finetuning_manifest_to_filtering_manifest(train_manifest, args.project_path)
 
     filtering_data_folder = os.path.join(args.project_path, 'filtering_framework/data')
     file_path = os.path.join(filtering_data_folder, args.manifest_filename)

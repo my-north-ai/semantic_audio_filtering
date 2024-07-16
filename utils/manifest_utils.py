@@ -111,7 +111,7 @@ def remove_special_samples(manifest_data):
 
     return new_manifest_data
 
-def convert_finetuning_manifest_to_filtering_manifest(original_manifest_data):
+def convert_finetuning_manifest_to_filtering_manifest(original_manifest_data, project_path):
     
     # Initialize an empty list to store the new manifest lines
     new_manifest_data = []
@@ -121,7 +121,7 @@ def convert_finetuning_manifest_to_filtering_manifest(original_manifest_data):
         new_entry = {
             "audio_id": index,  # Use the index as the audio_id
             "caption": manifest_line['text'],  # Use 'text' from original manifest_line as 'caption'
-            "audio_path": manifest_line['audio_filepath']  # Use 'audio_filepath' from original manifest_line as 'audio_path'
+            "audio_path": os.path.join(project_path, manifest_line['audio_filepath']),  # Use 'audio_filepath' from original manifest_line as 'audio_path'
         }
         new_manifest_data.append(new_entry)
 

@@ -40,7 +40,7 @@ class FilteringFramework:
         self.device = torch.device(self.config.training.device)
         self.feature_extractor = WhisperFeatureExtractor.from_pretrained("openai/whisper-medium")
         self.checkpoint_path = pretrained_model_path
-        
+
         self.path_to_model = os.path.join(
             self.config.env.experiments_dir,
             self.config.env.experiment_id,
@@ -145,15 +145,17 @@ class FilteringFramework:
         for embedding_audio, embedding_text in zip(audio_features, text_features):
             similarities.append(compute_cosine_similarity(embedding_text.unsqueeze(0), embedding_audio.unsqueeze(0)))
         
-        self.similarities = np.array(similarities)
+        similarities_tensor = torch.tensor(similarities)
+        self.similarities = similarities_tensor.numpy()
     
 
-    def apply_filtering(self, synthetic_data_manifest, stdev_threshold=3):
+    def apply_filtering(self, synthetic_data_manifest, stdev_threshold):
         
         mean = np.mean(self.similarities)
+        stdev = np.std(self.similarities)
 
         # Identify the condition for outliers
-        condition = self.similarities < (mean - 3*stdev_threshold)
+        condition = self.similarities < (mean - stdev_threshold * stdev)
 
         # Get the indices of the outliers
         outlier_indices = np.where(condition)[0]
@@ -177,10 +179,10 @@ class FilteringFramework:
 
         return samples_to_delete
         
-    def run(self):
+    def run(self, data_manifest_path, stdev_threshold=3):
         audio_features, text_features = self.extract_embeddings()
         self.get_similarities(audio_features, text_features)
-
+        self.apply_filtering(data_manifest_path, stdev_threshold)
 
 
 
