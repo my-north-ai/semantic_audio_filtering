@@ -1,0 +1,17 @@
+{
+"gradient_accumulation_steps": 32,
+"per_device_train_batch_size": 1,
+"per_device_eval_batch_size": 8,
+"learning_rate": 1e-6,
+"gradient_checkpointing": true,
+"fp16": true,
+"num_train_epochs": 3,
+"evaluation_strategy": "steps",
+"generation_max_length": 448,
+"predict_with_generate": true,
+"logging_steps": 10,
+"report_to": ["mlflow"],
+"gradient_checkpointing_kwargs": {"use_reentrant": false},
+"greater_is_better": false,
+"push_to_hub": false
+}

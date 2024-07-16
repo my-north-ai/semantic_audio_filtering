@@ -6,6 +6,10 @@ DS_Store
 # Ignore all wav files in the data/wavs folder
 filtering_framework/data/
 filtering_framework/embeddings/
+filtering_framework/args/
+filtering_framework/checkpoints/
+
+
 
 /Users/tmsantos/Documents/TTS_Augmentation/tts_data_augmentation/filtering_framework/utils.ipynb
 /Users/tmsantos/Documents/TTS_Augmentation/tts_data_augmentation/filtering_framework/__pycache__/
