@@ -18,3 +18,4 @@ Whisper-Medium: https://huggingface.co/my-north-ai/whisper-medium-pt
 Whisper-Small: https://huggingface.co/my-north-ai/whisper-small-pt
 
 
+Paper available here : https://ieeexplore.ieee.org/document/10720758/metrics#metrics
